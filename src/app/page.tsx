@@ -194,12 +194,13 @@ const MarqueeRow = ({ images, direction, speed }: { images: string[], direction:
       }}
     >
       {[...images, ...images].map((img, idx) => (
-        <div key={idx} className="marquee-item">
+        <div key={idx} className="marquee-item" style={{ position: 'relative' }}>
           <Image 
             src={`/images/envato/${img}`} 
             alt="Memory Gallery" 
             fill
             sizes="(max-width: 640px) 200px, 280px"
+            style={{ objectFit: "cover" }}
           />
         </div>
       ))}
@@ -328,13 +329,15 @@ export default function Page() {
         <div className="section-inner">
           <div className="reveal">
             <h2>{t.vidTitle}</h2>
-            <div className="video-wrap">
-              <div className="video-wrap-bg"></div>
-              <div className="play-btn">
-                <div className="play-circle"></div>
-                <span className="play-label">{t.vidPlay}</span>
+            <a href="https://youtu.be/03JHHsAW3zc" target="_blank" rel="noopener noreferrer" style={{ display: 'block' }}>
+              <div className="video-wrap">
+                <div className="video-wrap-bg"></div>
+                <div className="play-btn">
+                  <div className="play-circle"></div>
+                  <span className="play-label">{t.vidPlay}</span>
+                </div>
               </div>
-            </div>
+            </a>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div className="quote-pull">
                 <div className="quote-bar"></div>
