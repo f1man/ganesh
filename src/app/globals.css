@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-warm-900: #4a3b32;
+  --color-warm-800: #5c4a3d;
+  --color-warm-700: #7a6352;
+  --color-cream-100: #fdfbf7;
+  --color-cream-200: #f5f0e6;
+  --color-peach-400: #e8a598;
+  --color-peach-500: #d98272;
+  --color-peach-600: #c26b5b;
+  
+  --font-sans: var(--font-noto-jp), var(--font-noto-kr), system-ui, sans-serif;
+}
+
+:root {
+  --background: var(--color-cream-100);
+  --foreground: var(--color-warm-900);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: var(--color-warm-900);
+    --foreground: var(--color-cream-100);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.glass-panel {
+  @apply bg-white/60 dark:bg-warm-800/60 backdrop-blur-md border border-white/40 dark:border-warm-700/50 shadow-lg;
+}
+
+.heading-premium {
+  @apply font-light tracking-wide text-warm-900 dark:text-cream-100 leading-tight;
+}
