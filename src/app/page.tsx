@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, HeartPulse, Languages, Stethoscope, Car, Home, FileText, CheckCircle2, MessageCircle, Mail, Globe } from "lucide-react";
+import { useState, useEffect } from "react";
 
 type Lang = "ja" | "ko";
 
@@ -40,14 +38,14 @@ const content = {
     endrollTitle: "人生のエンドロール",
     endrollP1: "お買い物や旅行、家族の行事などに同行させていただき\nその瞬間の写真や動画を編集して\nエンドロールの作成もオプションにしました。",
     endrollP2: "ご家族の記憶に残る瞬間を\nいつでも思い返せるよう\n心を込めて作成いたします。",
-    endrollNote1: "※プロの映像クリエイターではありませんが",
+    endrollNote1: "※ご注意",
     endrollNote2: "一人の看護師として寄り添うからこそ撮れる\n「あなたの最高の一瞬」をカタチにします",
     storyLabel: "CUSTOMER STORY",
     storyQuote: "「母も安心して過ごせたと言っていました。離れていても、安心できる。」",
     storyUser: "30代 女性 / 東京",
     storyDesc: "お母様の健診同行サポートをご利用",
     trustLabel: "WHY CHOOSE US",
-    trustTitle: "確かな経験と実績でサポートします",
+    trustTitle: "確かな経験と実績で<br>サポートします",
     trust1Title: "100件以上の同行実績",
     trust1Desc: "豊富な現場ノウハウ",
     trust2Title: "日本人顧客対応可能",
@@ -60,7 +58,17 @@ const content = {
     ctaSub: "24時間以内にご返信いたします。",
     btnLine: "LINE相談",
     btnMail: "メール相談",
-    footerDesc: "プレミアム医療コンシェルジュ",
+    footerMsg1: "「あの時、行けばよかった」をゼロにしたい。",
+    footerMsg2: "あなたの『最後のわがまま』をかなえる",
+    footerMsg3: "一番の味方でありたいと思っています。",
+    footerRep: "代表：小林知美",
+    footerLocTitle: "拠点",
+    footerLoc: "千葉県市原市を拠点に活動しています",
+    footerEmailTitle: "Email Address",
+    footerEmail: "motioningcare.ganesh@gmail.com",
+    footerPhoneTitle: "Phone Number",
+    footerPhone: "070-8994-8896",
+    footerLineTitle: "LINE QR",
     privacy: "個人情報保護方針",
     terms: "利用規約"
   },
@@ -94,17 +102,17 @@ const content = {
     serv4: "이동 지원",
     serv5: "생활 케어",
     serv6: "가족 리포트",
-    endrollTitle: "인생의 엔드롤 (영상 제작 옵션)",
+    endrollTitle: "인생의 엔드롤",
     endrollP1: "쇼핑이나 여행, 가족 행사 등에 동행하며\n그 순간의 사진과 영상을 편집하여\n엔드롤 영상 제작을 옵션으로 추가했습니다.",
     endrollP2: "가족의 기억에 남는 순간을\n언제든 되돌아볼 수 있도록\n마음을 담아 제작해 드립니다.",
-    endrollNote1: "※ 전문 영상 크리에이터는 아니지만",
+    endrollNote1: "※ 참고",
     endrollNote2: "한 명의 간호사로서 곁에서 함께하기에 담을 수 있는\n'당신의 가장 빛나는 최고의 순간'을 영상으로 남겨드립니다.",
     storyLabel: "CUSTOMER STORY",
     storyQuote: "어머니도 안심하고 지내셨다고 합니다. 멀리 떨어져 있어도 안심할 수 있습니다.",
     storyUser: "30대 여성 / 도쿄",
     storyDesc: "어머니 건강검진 동행 서포트 이용",
     trustLabel: "WHY CHOOSE US",
-    trustTitle: "확실한 경험과 실적으로 서포트합니다",
+    trustTitle: "확실한 경험과 실적으로<br>서포트합니다",
     trust1Title: "100건 이상 동행",
     trust1Desc: "풍부한 현장 노하우",
     trust2Title: "일본 고객 대응 가능",
@@ -113,11 +121,21 @@ const content = {
     trust3Desc: "보호자와 실시간 상황 공유",
     trust4Title: "병원 협력 경험",
     trust4Desc: "원활한 의료진 커뮤니케이션",
-    ctaTitle: "혼자 고민하지 마세요. 지금 상담하세요.",
+    ctaTitle: "혼자 고민하지 마세요.",
     ctaSub: "24시간 이내에 답변해 드립니다.",
     btnLine: "LINE 상담",
     btnMail: "이메일 상담",
-    footerDesc: "프리미엄 메디컬 컨시어지",
+    footerMsg1: "\"그때, 갈 걸 그랬어\" 하는 후회를 지워드리겠습니다.",
+    footerMsg2: "당신의 '마지막 소원'을 이루어주는",
+    footerMsg3: "가장 든든한 내 편이 되고자 합니다.",
+    footerRep: "대표: 고바야시 토모미",
+    footerLocTitle: "거점",
+    footerLoc: "치바현 이치하라시를 거점으로 활동하고 있습니다.",
+    footerEmailTitle: "Email Address",
+    footerEmail: "motioningcare.ganesh@gmail.com",
+    footerPhoneTitle: "Phone Number",
+    footerPhone: "070-8994-8896",
+    footerLineTitle: "LINE QR",
     privacy: "개인정보처리방침",
     terms: "이용약관"
   }
@@ -125,296 +143,373 @@ const content = {
 
 export default function Page() {
   const [lang, setLang] = useState<Lang>("ja");
+  const [isLinePopupOpen, setIsLinePopupOpen] = useState(false);
   const t = content[lang];
 
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
-  };
+  useEffect(() => {
+    if (lang === "ko") {
+      document.body.classList.add("lang-ko");
+    } else {
+      document.body.classList.remove("lang-ko");
+    }
 
-  const stagger = {
-    visible: { transition: { staggerChildren: 0.2 } }
-  };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    const elements = document.querySelectorAll('.reveal');
+    elements.forEach((el) => {
+      el.classList.remove('visible');
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [lang]);
 
   return (
-    <main className="min-h-screen bg-cream-100 text-warm-900 selection:bg-peach-400/30">
-      
-      {/* Floating Language Switcher */}
-      <div className="fixed top-6 right-6 z-50 flex items-center bg-white/80 backdrop-blur-md rounded-full shadow-md border border-warm-200 p-1">
+    <>
+      {/* Lang Toggle */}
+      <div className="lang-toggle">
         <button 
+          className={lang === "ja" ? "active" : "inactive"} 
           onClick={() => setLang("ja")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${lang === "ja" ? "bg-peach-500 text-white shadow-sm" : "text-warm-700 hover:text-warm-900"}`}
-        >
-          JP
-        </button>
+        >JP</button>
         <button 
+          className={lang === "ko" ? "active" : "inactive"} 
           onClick={() => setLang("ko")}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${lang === "ko" ? "bg-peach-500 text-white shadow-sm" : "text-warm-700 hover:text-warm-900"}`}
-        >
-          KR
-        </button>
+        >KR</button>
       </div>
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={lang}
-          initial={{ opacity: 0, filter: "blur(4px)" }}
-          animate={{ opacity: 1, filter: "blur(0px)" }}
-          exit={{ opacity: 0, filter: "blur(4px)" }}
-          transition={{ duration: 0.4 }}
+      {/* ══════════ HERO ══════════ */}
+      <section className="hero">
+        <div className="hero-bg"></div>
+        <div className="hero-gradient"></div>
+        <div className="hero-inner">
+          <p className="eyebrow">{t.heroTag}</p>
+          <h1>
+            {t.heroTitle1}<br />{t.heroTitle2}
+            <em>{t.heroSub}</em>
+          </h1>
+          <p className="hero-sub">
+            {t.heroDesc1}<br />
+            {t.heroDesc2}<br />
+            {t.heroDesc3}
+          </p>
+          <div className="hero-line"></div>
+        </div>
+      </section>
+
+      {/* ══════════ PROBLEM ══════════ */}
+      <section className="section-problem">
+        <div className="section-inner">
+          <div className="reveal">
+            <h2>
+              {t.emp1}<br />
+              {t.emp2}
+            </h2>
+            <div className="divider"></div>
+            <blockquote>
+              {t.emp3}<br />{t.emp4}
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ FEATURES ══════════ */}
+      <section className="section-features">
+        <div className="section-inner">
+          <div className="section-title reveal">
+            <p className="eyebrow" style={{ color: 'var(--gold)', animation: 'none', opacity: 1 }}>OUR APPROACH</p>
+            <h2>{t.solTitle}</h2>
+          </div>
+          <div className="features-grid">
+            <div className="feature-card reveal">
+              <div className="feature-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>
+              </div>
+              <h3>{t.sol1}</h3>
+            </div>
+            <div className="feature-card reveal reveal-delay-1">
+              <div className="feature-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
+              </div>
+              <h3>{t.sol2}</h3>
+            </div>
+            <div className="feature-card reveal reveal-delay-2">
+              <div className="feature-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              </div>
+              <h3>{t.sol3}</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ VIDEO ══════════ */}
+      <section className="section-video">
+        <div className="section-inner">
+          <div className="reveal">
+            <h2>{t.vidTitle}</h2>
+            <div className="video-wrap">
+              <div className="video-wrap-bg"></div>
+              <div className="play-btn">
+                <div className="play-circle"></div>
+                <span className="play-label">{t.vidPlay}</span>
+              </div>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="quote-pull">
+                <div className="quote-bar"></div>
+                <div>
+                  <blockquote>{t.vidQuote}</blockquote>
+                  <p className="quote-attr">{t.vidSub}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ BUCKET CTA ══════════ */}
+      <section className="section-bucket">
+        <div className="section-inner">
+          <div className="reveal">
+            <div className="divider"></div>
+            <h2>
+              {t.buck1} {t.buck2}
+              <strong>{t.buck3}</strong>
+            </h2>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ SERVICES ══════════ */}
+      <section className="section-services">
+        <div className="section-inner">
+          <div className="section-title reveal">
+            <p className="eyebrow" style={{ color: 'var(--gold)', animation: 'none', opacity: 1 }}>SERVICES</p>
+            <h2>{t.servTitle}</h2>
+          </div>
+          <div className="services-grid">
+            <div className="service-card reveal">
+              <div className="service-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg>
+              </div>
+              <h3>{t.serv1}</h3>
+            </div>
+            <div className="service-card reveal reveal-delay-1">
+              <div className="service-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+              </div>
+              <h3>{t.serv2}</h3>
+            </div>
+            <div className="service-card reveal reveal-delay-2">
+              <div className="service-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M11 2v2"/><path d="M5 2v2"/><path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"/><path d="M8 15a6 6 0 0 0 12 0v-3"/><circle cx="20" cy="10" r="2"/></svg>
+              </div>
+              <h3>{t.serv3}</h3>
+            </div>
+            <div className="service-card reveal">
+              <div className="service-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg>
+              </div>
+              <h3>{t.serv4}</h3>
+            </div>
+            <div className="service-card reveal reveal-delay-1">
+              <div className="service-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              </div>
+              <h3>{t.serv5}</h3>
+            </div>
+            <div className="service-card reveal reveal-delay-2">
+              <div className="service-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+              </div>
+              <h3>{t.serv6}</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ ENDROLL ══════════ */}
+      <section className="section-endroll">
+        <div className="endroll-inner">
+          <div className="endroll-card reveal">
+            <h2>{t.endrollTitle}</h2>
+            <p>{t.endrollP1}</p>
+            <p>{t.endrollP2}</p>
+            <div className="endroll-note">
+              <p className="note-label">{t.endrollNote1}</p>
+              <p>{t.endrollNote2}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ PROOF ══════════ */}
+      <section className="section-proof">
+        <div className="section-inner">
+          <div className="proof-grid">
+            <div className="reveal">
+              <p className="proof-label">{t.storyLabel}</p>
+              <div className="testimonial-card">
+                <div className="big-quote">"</div>
+                <div className="stars">★★★★★</div>
+                <blockquote>{t.storyQuote}</blockquote>
+                <div className="testimonial-meta">
+                  <div className="meta-avatar"></div>
+                  <div>
+                    <div className="meta-name">{t.storyUser}</div>
+                    <div className="meta-detail">{t.storyDesc}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="reveal reveal-delay-2">
+              <p className="proof-label">{t.trustLabel}</p>
+              <h2 className="why-heading" dangerouslySetInnerHTML={{ __html: t.trustTitle }}></h2>
+              <div className="why-list">
+                <div className="why-item">
+                  <svg className="why-check" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                  <div>
+                    <div className="why-title">{t.trust1Title}</div>
+                    <div className="why-desc">{t.trust1Desc}</div>
+                  </div>
+                </div>
+                <div className="why-item">
+                  <svg className="why-check" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                  <div>
+                    <div className="why-title">{t.trust2Title}</div>
+                    <div className="why-desc">{t.trust2Desc}</div>
+                  </div>
+                </div>
+                <div className="why-item">
+                  <svg className="why-check" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                  <div>
+                    <div className="why-title">{t.trust3Title}</div>
+                    <div className="why-desc">{t.trust3Desc}</div>
+                  </div>
+                </div>
+                <div className="why-item">
+                  <svg className="why-check" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+                  <div>
+                    <div className="why-title">{t.trust4Title}</div>
+                    <div className="why-desc">{t.trust4Desc}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ CTA ══════════ */}
+      <section className="section-cta">
+        <div className="cta-noise"></div>
+        <div className="section-inner">
+          <div className="reveal">
+            <h2>{t.ctaTitle}</h2>
+            <div className="cta-buttons">
+              <button className="btn btn-line" onClick={() => setIsLinePopupOpen(true)}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719"/></svg>
+                {t.btnLine}
+              </button>
+              <a href={`mailto:${t.footerEmail}`} className="btn btn-mail" style={{ textDecoration: 'none' }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+                {t.btnMail}
+              </a>
+            </div>
+            <p className="cta-reply">{t.ctaSub}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════ FOOTER ══════════ */}
+      <footer>
+        <div className="footer-inner" style={{ alignItems: 'flex-start' }}>
+          <div className="footer-brand" style={{ flex: 1 }}>
+            <h2 style={{ marginBottom: '1.5rem' }}>Motioning Care</h2>
+            <div style={{ marginBottom: '2rem' }}>
+              <p style={{ fontSize: '1.05rem', fontWeight: 500, color: '#fff', marginBottom: '0.75rem', lineHeight: 1.6, letterSpacing: '0.05em' }}>{t.footerMsg1}</p>
+              <p style={{ fontSize: '0.9rem', lineHeight: 1.8, color: 'var(--cream)', opacity: 0.85 }}>
+                {t.footerMsg2}<br />
+                {t.footerMsg3}
+              </p>
+            </div>
+            <p style={{ fontWeight: 500, color: 'var(--peach-light)', fontSize: '0.95rem', letterSpacing: '0.05em' }}>{t.footerRep}</p>
+            <p style={{ marginTop: '0.5rem', fontSize: '0.8rem', opacity: 0.7 }}>{t.footerLoc}</p>
+          </div>
+          
+          <div className="footer-info" style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1.5rem', alignItems: 'flex-start', textAlign: 'left' }}>
+            <div>
+              <p style={{ fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--gold-light)', marginBottom: '0.4rem', fontWeight: 500 }}>{t.footerEmailTitle}</p>
+              <a href={`mailto:${t.footerEmail}`} style={{ color: 'var(--cream)', fontSize: '1.05rem', textDecoration: 'none', letterSpacing: '0.05em' }}>{t.footerEmail}</a>
+            </div>
+            <div>
+              <p style={{ fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--gold-light)', marginBottom: '0.4rem', fontWeight: 500 }}>{t.footerPhoneTitle}</p>
+              <a href={`tel:${t.footerPhone}`} style={{ color: 'var(--cream)', fontSize: '1.05rem', textDecoration: 'none', letterSpacing: '0.05em' }}>{t.footerPhone}</a>
+            </div>
+            
+            <div style={{ marginTop: '0.5rem' }}>
+              <p style={{ fontSize: '0.75rem', letterSpacing: '0.15em', color: 'var(--gold-light)', marginBottom: '0.75rem', fontWeight: 500 }}>{t.footerLineTitle}</p>
+              <a href="https://line.me/R/ti/p/@motioningcare" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', background: '#fff', padding: '0.5rem', borderRadius: '0.75rem', boxShadow: '0 4px 12px rgba(0,0,0,0.15)', transition: 'transform 0.2s', cursor: 'pointer' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-4px)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}>
+                <img src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent('https://line.me/R/ti/p/@motioningcare')}`} alt="LINE QR Code" width="100" height="100" style={{ display: 'block', borderRadius: '0.25rem' }} />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>© {new Date().getFullYear()} Motioning Care. All rights reserved.</p>
+          <div className="footer-links">
+            <a href="#">{t.privacy}</a>
+            <a href="#">{t.terms}</a>
+          </div>
+        </div>
+      </footer>
+
+      {/* LINE QR Popup */}
+      {isLinePopupOpen && (
+        <div 
+          style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(46,33,25,0.6)', backdropFilter: 'blur(4px)' }}
+          onClick={() => setIsLinePopupOpen(false)}
         >
-          {/* 1. Hero Section */}
-          <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-warm-900 text-cream-100">
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=2500&auto=format&fit=crop')] bg-cover bg-center opacity-25 mix-blend-overlay"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-warm-900/60 via-warm-900/40 to-warm-900"></div>
-            
-            <div className="relative z-10 max-w-5xl mx-auto px-6 text-center mt-12">
-              <motion.div initial="hidden" animate="visible" variants={fadeIn}>
-                <p className="text-peach-400 font-medium tracking-widest mb-6 text-sm md:text-base">{t.heroTag}</p>
-                <h1 className="text-4xl md:text-6xl font-light leading-tight mb-8">
-                  {t.heroTitle1}<br className="hidden md:block"/>{t.heroTitle2}<br/>
-                  <span className="text-peach-400 font-medium mt-4 block">{t.heroSub}</span>
-                </h1>
-                <p className="text-lg md:text-xl text-cream-200/90 max-w-3xl mx-auto leading-relaxed font-light">
-                  {t.heroDesc1}<br/>
-                  {t.heroDesc2}<br className="md:hidden"/>{t.heroDesc3}
-                </p>
-              </motion.div>
-            </div>
-            
-            <motion.div 
-              className="absolute bottom-10 left-1/2 -translate-x-1/2 text-cream-200/50"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
+          <div 
+            style={{ background: '#fff', padding: '2.5rem', borderRadius: '1.5rem', textAlign: 'center', boxShadow: '0 24px 60px rgba(0,0,0,0.2)', position: 'relative', maxWidth: '90%', width: '320px', animation: 'fadeUp 0.4s var(--ease-out) forwards' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              onClick={() => setIsLinePopupOpen(false)}
+              style={{ position: 'absolute', top: '1rem', right: '1rem', background: 'none', border: 'none', cursor: 'pointer', color: 'var(--warm-500)' }}
             >
-              <ChevronDown size={32} />
-            </motion.div>
-          </section>
-
-          {/* 2. Problem Empathy */}
-          <section className="py-32 bg-cream-100 text-warm-900 relative">
-            <div className="max-w-4xl mx-auto px-6 text-center">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeIn}>
-                <div className="mb-16">
-                  <h2 className="text-3xl md:text-4xl font-light leading-relaxed mb-8">
-                    {t.emp1}<br/>{t.emp2}
-                  </h2>
-                  <p className="text-2xl md:text-3xl text-warm-700 italic font-medium">
-                    {t.emp3}<br/>{t.emp4}
-                  </p>
-                </div>
-              </motion.div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+            </button>
+            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', color: 'var(--warm-900)', marginBottom: '0.5rem' }}>LINE Consultation</h3>
+            <p style={{ fontSize: '0.85rem', color: 'var(--warm-700)', marginBottom: '1.5rem', lineHeight: 1.5, whiteSpace: 'pre-line' }}>
+              {lang === 'ja' ? 'QRコードをスキャンして\nお問い合わせください' : 'QR 코드를 스캔하여\n문의해 주세요'}
+            </p>
+            <div style={{ background: 'var(--cream)', padding: '1rem', borderRadius: '1rem', display: 'inline-block' }}>
+              <img 
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent('https://line.me/R/ti/p/@motioningcare')}`} 
+                alt="LINE QR Code" 
+                width="160" height="160" 
+                style={{ display: 'block', borderRadius: '0.5rem' }} 
+              />
             </div>
-          </section>
-
-          {/* 3. Solution */}
-          <section className="py-24 bg-white text-warm-900">
-            <div className="max-w-6xl mx-auto px-6">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-medium mb-4 text-peach-600">{t.solTitle}</h2>
-              </motion.div>
-
-              <motion.div 
-                className="grid md:grid-cols-3 gap-8"
-                initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}
-              >
-                {[
-                  { title: t.sol1, icon: <Stethoscope size={32} /> },
-                  { title: t.sol2, icon: <HeartPulse size={32} /> },
-                  { title: t.sol3, icon: <Home size={32} /> },
-                ].map((item, i) => (
-                  <motion.div key={i} variants={fadeIn} className="glass-panel p-8 rounded-2xl text-center hover:-translate-y-2 transition-transform duration-300">
-                    <div className="w-16 h-16 bg-peach-400/10 text-peach-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                      {item.icon}
-                    </div>
-                    <h3 className="text-xl font-medium mb-3 text-warm-800">{item.title}</h3>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          </section>
-
-          {/* 4. Story (Video) */}
-          <section className="py-32 bg-warm-900 text-cream-100">
-            <div className="max-w-5xl mx-auto px-6 text-center">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-                <h2 className="text-3xl md:text-4xl font-light mb-12">{t.vidTitle}</h2>
-                
-                {/* Video Placeholder */}
-                <div className="aspect-video bg-warm-800 rounded-2xl overflow-hidden relative shadow-2xl border border-cream-100/10 mb-10 flex items-center justify-center group">
-                   <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581056771107-24ca5f033842?q=80&w=2000&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay transition-opacity duration-500 group-hover:opacity-60"></div>
-                   <div className="relative z-10 flex flex-col items-center">
-                      <div className="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/40 cursor-pointer hover:bg-white/30 hover:scale-110 transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                        <div className="w-0 h-0 border-t-[12px] border-t-transparent border-l-[20px] border-l-white border-b-[12px] border-b-transparent ml-2"></div>
-                      </div>
-                      <p className="mt-6 text-sm tracking-widest text-cream-200 font-medium">{t.vidPlay}</p>
-                   </div>
-                </div>
-
-                <div className="inline-block border-l-4 border-peach-400 pl-6 text-left">
-                  <p className="text-2xl md:text-3xl font-light italic mb-3 text-cream-100">{t.vidQuote}</p>
-                  <p className="text-peach-400/90 text-sm tracking-wider font-medium">{t.vidSub}</p>
-                </div>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* 5. Bucket List */}
-          <section className="py-32 bg-cream-200 text-warm-900 text-center relative overflow-hidden">
-            <div className="max-w-4xl mx-auto px-6 relative z-10">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-                <h2 className="text-3xl md:text-5xl font-light leading-tight mb-8">
-                  {t.buck1}<br/>{t.buck2}<br/>
-                  <span className="font-medium text-peach-600 mt-6 block">{t.buck3}</span>
-                </h2>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* 6. Service Details */}
-          <section className="py-32 bg-white">
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl font-medium text-warm-900">{t.servTitle}</h2>
-              </div>
-
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-10">
-                {[
-                  { icon: <HeartPulse strokeWidth={1.5} />, title: t.serv1 },
-                  { icon: <Languages strokeWidth={1.5} />, title: t.serv2 },
-                  { icon: <Stethoscope strokeWidth={1.5} />, title: t.serv3 },
-                  { icon: <Car strokeWidth={1.5} />, title: t.serv4 },
-                  { icon: <Home strokeWidth={1.5} />, title: t.serv5 },
-                  { icon: <FileText strokeWidth={1.5} />, title: t.serv6 }
-                ].map((service, idx) => (
-                  <motion.div 
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.1 }}
-                    className="bg-cream-100 p-8 md:p-10 rounded-3xl flex flex-col items-center text-center border border-cream-200/50 hover:shadow-xl hover:border-peach-400/30 transition-all duration-300"
-                  >
-                    <div className="text-peach-500 mb-6 bg-white p-5 rounded-2xl shadow-sm">
-                      {service.icon}
-                    </div>
-                    <h3 className="text-lg font-medium text-warm-900">{service.title}</h3>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* 6.5 End Roll Option */}
-          <section className="py-32 bg-cream-200 text-warm-900 relative overflow-hidden">
-            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%234a3b32\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
-            <div className="max-w-4xl mx-auto px-6 relative z-10">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn} className="glass-panel p-10 md:p-16 rounded-3xl border border-peach-400/20 text-center relative z-10 bg-white/70">
-                <h2 className="text-3xl md:text-4xl font-medium mb-10 text-peach-600">{t.endrollTitle}</h2>
-                <div className="space-y-6 text-lg md:text-xl font-light leading-relaxed mb-10 text-warm-800">
-                  <p className="whitespace-pre-line">{t.endrollP1}</p>
-                  <p className="whitespace-pre-line">{t.endrollP2}</p>
-                </div>
-                <div className="bg-white/80 p-6 md:p-8 rounded-2xl inline-block text-left shadow-sm border border-cream-200">
-                  <p className="text-sm md:text-base text-peach-600 font-medium mb-2">{t.endrollNote1}</p>
-                  <p className="text-base md:text-lg text-warm-900 font-medium whitespace-pre-line">{t.endrollNote2}</p>
-                </div>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* 7. Parent Care Story & 8. Trust Elements */}
-          <section className="py-32 bg-warm-900 text-cream-100">
-            <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-20">
-              {/* Story */}
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-                <h3 className="text-peach-400 text-sm tracking-widest mb-6 font-medium">{t.storyLabel}</h3>
-                <div className="glass-panel p-10 md:p-12 rounded-3xl relative">
-                  <div className="absolute -top-6 -left-6 text-peach-500/20 text-9xl leading-none font-serif">"</div>
-                  <div className="flex gap-1 text-peach-400 mb-8 relative z-10">
-                    {[1,2,3,4,5].map(star => <span key={star}>★</span>)}
-                  </div>
-                  <p className="text-xl md:text-2xl font-light leading-relaxed mb-10 relative z-10 text-cream-100">
-                    {t.storyQuote}
-                  </p>
-                  <div className="flex items-center gap-5 border-t border-cream-100/10 pt-8 mt-8 relative z-10">
-                    <div className="w-14 h-14 bg-cream-100/10 rounded-full border border-cream-100/20"></div>
-                    <div>
-                      <p className="font-medium text-cream-100">{t.storyUser}</p>
-                      <p className="text-sm text-cream-200/60 mt-1">{t.storyDesc}</p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Trust Elements */}
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-                 <h3 className="text-peach-400 text-sm tracking-widest mb-6 font-medium">{t.trustLabel}</h3>
-                 <h2 className="text-3xl font-light mb-12 text-cream-100">{t.trustTitle}</h2>
-                 
-                 <div className="space-y-8">
-                    {[
-                      { title: t.trust1Title, desc: t.trust1Desc },
-                      { title: t.trust2Title, desc: t.trust2Desc },
-                      { title: t.trust3Title, desc: t.trust3Desc },
-                      { title: t.trust4Title, desc: t.trust4Desc },
-                    ].map((trust, idx) => (
-                      <div key={idx} className="flex gap-5 items-start">
-                        <CheckCircle2 className="text-peach-400 shrink-0 mt-1" size={28} />
-                        <div>
-                          <h4 className="text-xl font-medium text-cream-100 mb-1">{trust.title}</h4>
-                          <p className="text-cream-200/70 text-base">{trust.desc}</p>
-                        </div>
-                      </div>
-                    ))}
-                 </div>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* 9. CTA */}
-          <section className="py-32 bg-peach-500 text-white text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-peach-600 to-peach-500 opacity-90"></div>
-            <div className="max-w-4xl mx-auto px-6 relative z-10">
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeIn}>
-                <h2 className="text-4xl md:text-5xl font-medium mb-12">{t.ctaTitle}</h2>
-                
-                <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                  <button className="flex items-center justify-center gap-3 bg-[#06C755] hover:bg-[#05b34c] text-white px-10 py-5 rounded-full font-medium text-lg transition-all hover:-translate-y-1 shadow-[0_10px_20px_rgba(6,199,85,0.3)]">
-                    <MessageCircle size={24} /> {t.btnLine}
-                  </button>
-                  <button className="flex items-center justify-center gap-3 bg-warm-900 hover:bg-warm-800 text-white px-10 py-5 rounded-full font-medium text-lg transition-all hover:-translate-y-1 shadow-[0_10px_20px_rgba(74,59,50,0.3)]">
-                    <Mail size={24} /> {t.btnMail}
-                  </button>
-                </div>
-                <p className="mt-10 text-sm font-medium opacity-90 tracking-wide">{t.ctaSub}</p>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* 10. Footer */}
-          <footer className="bg-warm-900 text-cream-200/60 py-16 border-t border-cream-100/10">
-            <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
-              <div className="text-center md:text-left">
-                <h2 className="text-2xl font-light text-cream-100 mb-2 tracking-wide">Motioning Care</h2>
-                <p className="text-sm tracking-wider">{t.footerDesc}</p>
-              </div>
-              <div className="text-sm text-center md:text-right flex flex-col gap-2">
-                <p>株式会社 Antigravity</p>
-                <p>contact@antigravity.com</p>
-                <p>LINE: @motioningcare</p>
-              </div>
-            </div>
-            <div className="max-w-6xl mx-auto px-6 mt-16 pt-8 border-t border-cream-100/10 text-xs text-center flex flex-col md:flex-row justify-between gap-6">
-              <p>&copy; {new Date().getFullYear()} Antigravity Inc. All rights reserved.</p>
-              <div className="flex justify-center gap-8">
-                <a href="#" className="hover:text-cream-100 transition">{t.privacy}</a>
-                <a href="#" className="hover:text-cream-100 transition">{t.terms}</a>
-              </div>
-            </div>
-          </footer>
-        </motion.div>
-      </AnimatePresence>
-    </main>
+            <a 
+              href="https://line.me/R/ti/p/@motioningcare" 
+              target="_blank" rel="noopener noreferrer"
+              style={{ display: 'block', marginTop: '1.5rem', fontSize: '0.85rem', color: 'var(--peach)', fontWeight: 500, textDecoration: 'none' }}
+            >
+              {lang === 'ja' ? 'スマートフォンから開く' : '스마트폰에서 바로 열기'} &rarr;
+            </a>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

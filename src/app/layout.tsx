@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Noto_Sans_KR } from "next/font/google";
+import { Cormorant_Garamond, Zen_Kaku_Gothic_New, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 
-const notoSansJP = Noto_Sans_JP({
+const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["300", "400", "500", "700"],
-  variable: "--font-noto-jp",
+  variable: "--font-cormorant",
+});
+
+const zenKaku = Zen_Kaku_Gothic_New({
+  weight: ["300", "400", "500", "700"],
+  subsets: ["latin"],
+  variable: "--font-zen-kaku",
 });
 
 const notoSansKR = Noto_Sans_KR({
@@ -27,7 +33,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${notoSansJP.variable} ${notoSansKR.variable} h-full antialiased scroll-smooth`}
+      className={`${cormorant.variable} ${zenKaku.variable} ${notoSansKR.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
