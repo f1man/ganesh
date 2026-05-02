@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 type Lang = "ja" | "ko";
 
@@ -194,7 +195,12 @@ const MarqueeRow = ({ images, direction, speed }: { images: string[], direction:
     >
       {[...images, ...images].map((img, idx) => (
         <div key={idx} className="marquee-item">
-          <img src={`/images/envato/${img}`} alt="Memory Gallery" loading="lazy" />
+          <Image 
+            src={`/images/envato/${img}`} 
+            alt="Memory Gallery" 
+            fill
+            sizes="(max-width: 640px) 200px, 280px"
+          />
         </div>
       ))}
     </div>
