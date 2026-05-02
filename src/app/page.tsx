@@ -329,15 +329,19 @@ export default function Page() {
         <div className="section-inner">
           <div className="reveal">
             <h2>{t.vidTitle}</h2>
-            <a href="https://youtu.be/03JHHsAW3zc" target="_blank" rel="noopener noreferrer" style={{ display: 'block' }}>
-              <div className="video-wrap">
-                <div className="video-wrap-bg"></div>
-                <div className="play-btn">
-                  <div className="play-circle"></div>
-                  <span className="play-label">{t.vidPlay}</span>
-                </div>
-              </div>
-            </a>
+            <div className="video-wrap">
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/03JHHsAW3zc"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+              ></iframe>
+            </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <div className="quote-pull">
                 <div className="quote-bar"></div>
