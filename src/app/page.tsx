@@ -141,6 +141,66 @@ const content = {
   }
 };
 
+const envatoImages = [
+  "caregiver-supports-senior-woman-walking-with-walke-2026-03-24-00-08-00-utc.jpg",
+  "cheerful-senior-couple-of-female-friends-eating-a-2026-01-05-23-27-48-utc.jpg",
+  "close-up-picture-of-human-hands-holding-eah-other-2026-01-05-05-25-05-utc.jpg",
+  "comforting-hands-touching-in-gentle-support-2026-03-16-04-35-05-utc (1).jpg",
+  "comforting-hands-touching-in-gentle-support-2026-03-16-04-35-05-utc.jpg",
+  "comforting-touch-senior-hand-held-with-care-2026-03-16-04-25-53-utc (1).jpg",
+  "comforting-touch-senior-hand-held-with-care-2026-03-16-04-25-53-utc.jpg",
+  "concerned-woman-calling-for-sick-partner-in-bedroo-2026-03-26-23-29-22-utc.jpg",
+  "distraught-senior-woman-sits-on-bedside-2026-01-05-06-33-32-utc.jpg",
+  "doctor-or-nurse-helping-senior-man-to-walk-at-nurs-2026-03-24-04-20-04-utc.jpg",
+  "hands-of-young-adult-and-senior-touching-2026-03-27-02-16-40-utc.jpg",
+  "happy-senior-disabled-or-handicapped-bearded-man-s-2026-01-06-10-17-58-utc.jpg",
+  "happy-senior-woman-traveling-in-seville-spain-vis-2026-03-11-00-54-00-utc.jpg",
+  "healthcare-worker-with-senior-patient-on-park-benc-2026-03-20-00-14-01-utc.jpg",
+  "kind-woman-helping-senior-woman-outdoors-2026-03-20-04-02-57-utc.jpg",
+  "portrait-of-a-disabled-person-in-a-wheelchair-on-t-2026-01-06-10-16-17-utc.jpg",
+  "retirement-walking-and-elderly-friends-in-park-fo-2026-03-25-01-25-08-utc.jpg",
+  "sad-lonely-senior-sitting-in-a-hospital-bed-at-nig-2026-01-05-04-46-30-utc.jpg",
+  "senior-couple-holding-hands-during-a-sunny-walk-2026-03-24-07-07-36-utc.jpg",
+  "senior-couple-relaxing-at-home-in-bed-2026-03-26-22-49-47-utc (1).jpg",
+  "senior-couple-relaxing-at-home-in-bed-2026-03-26-22-49-47-utc.jpg",
+  "senior-man-in-wheelchair-with-young-adult-woman-2026-01-09-11-04-39-utc.jpg",
+  "senior-patient-taking-medicines-at-the-hospital-2026-01-07-06-13-51-utc.JPG",
+  "supportive-hands-holding-each-other-indoors-2026-03-25-02-20-30-utc.jpg",
+  "supportive-hands-touching-gently-on-white-bed-2026-03-18-05-34-21-utc.jpg",
+  "supportive-touch-hand-holding-in-comforting-setti-2026-03-25-06-09-30-utc.jpg",
+  "tender-moment-senior-woman-with-arm-around-2026-03-19-23-57-04-utc.jpg",
+  "two-people-holding-hands-indoors-on-couch-2026-03-23-22-59-42-utc.jpg",
+  "union-of-seniors-2026-03-24-04-58-48-utc.jpg",
+  "woman-comforts-senior-man-at-home-with-care-2026-03-10-03-57-35-utc.jpg",
+  "woman-in-white-coat-helping-senior-woman-2026-03-19-08-10-43-utc.jpg",
+  "woman-looking-at-man-with-chest-pain-sitting-on-st-2026-01-11-09-07-53-utc.jpg",
+  "woman-sitting-on-bed-with-phone-looking-anxious-2026-03-19-10-43-26-utc.jpg",
+  "young-adult-man-pushing-and-running-with-senior-ma-2026-01-11-11-10-38-utc.jpg",
+  "young-woman-and-senior-man-posing-for-selfie-2026-03-16-06-23-26-utc.jpg"
+];
+
+const row1 = envatoImages.slice(0, 12);
+const row2 = envatoImages.slice(12, 24);
+const row3 = envatoImages.slice(24, 35);
+
+const MarqueeRow = ({ images, direction, speed }: { images: string[], direction: 'left' | 'right', speed: string }) => (
+  <div className="marquee-wrapper">
+    <div 
+      className="marquee-track" 
+      style={{ 
+        animationDirection: direction === 'right' ? 'reverse' : 'normal',
+        animationDuration: speed 
+      }}
+    >
+      {[...images, ...images].map((img, idx) => (
+        <div key={idx} className="marquee-item">
+          <img src={`/images/envato/${img}`} alt="Memory Gallery" loading="lazy" />
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 export default function Page() {
   const [lang, setLang] = useState<Lang>("ja");
   const [isLinePopupOpen, setIsLinePopupOpen] = useState(false);
@@ -248,6 +308,13 @@ export default function Page() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* ══════════ GALLERY MARQUEE ══════════ */}
+      <section className="section-gallery">
+        <MarqueeRow images={row1} direction="left" speed="150s" />
+        <MarqueeRow images={row2} direction="right" speed="180s" />
+        <MarqueeRow images={row3} direction="left" speed="120s" />
       </section>
 
       {/* ══════════ VIDEO ══════════ */}
