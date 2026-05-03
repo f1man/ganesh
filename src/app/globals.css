@@ -4,10 +4,10 @@
   --cream:     #F4FBFB;
   --cream-2:   #E6F7F6;
   --cream-3:   #D0F0EE;
-  --warm-100:  #C2D5D9;
-  --warm-500:  #6B868C;
-  --warm-700:  #3E555C;
-  --warm-900:  #19282E;
+  --warm-100:  #D3E4E8;
+  --warm-500:  #7DA5B3;
+  --warm-700:  #507682;
+  --warm-900:  #2D4B54;
   --tiffany:       #38C9C6;
   --tiffany-light: #A6EBE9;
   --gold:      #5AD1CD;
@@ -47,7 +47,7 @@ body {
   border: 1px solid rgba(90,209,205,0.25);
   border-radius: 100px;
   padding: .25rem;
-  box-shadow: 0 4px 24px rgba(25,40,46,0.08);
+  box-shadow: 0 4px 24px rgba(45,75,84,0.08);
 }
 .lang-toggle button {
   padding: .4rem 1rem;
@@ -88,9 +88,9 @@ body {
   position: absolute; inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(25,40,46,.5) 0%,
-    rgba(25,40,46,.3) 45%,
-    rgba(25,40,46,.95) 100%
+    rgba(45,75,84,.5) 0%,
+    rgba(45,75,84,.3) 45%,
+    rgba(45,75,84,.95) 100%
   );
 }
 .hero-inner {
@@ -228,7 +228,7 @@ section { position: relative; }
 }
 .feature-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(25,40,46,.1);
+  box-shadow: 0 20px 60px rgba(45,75,84,.1);
   border-color: rgba(56,201,198,.25);
 }
 .feature-icon {
@@ -278,7 +278,7 @@ section { position: relative; }
   border-radius: 1rem;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(25,40,46,.08);
+  box-shadow: 0 4px 16px rgba(45,75,84,.08);
 }
 @media (min-width: 640px) {
   .marquee-item {
@@ -467,7 +467,7 @@ section { position: relative; }
   transition: transform .35s var(--ease-out);
 }
 .service-card:hover {
-  box-shadow: 0 16px 48px rgba(25,40,46,.1);
+  box-shadow: 0 16px 48px rgba(45,75,84,.1);
   border-color: rgba(56,201,198,.2);
   transform: translateY(-4px);
 }
@@ -478,7 +478,7 @@ section { position: relative; }
   border-radius: 1rem;
   display: flex; align-items: center; justify-content: center;
   color: var(--tiffany);
-  box-shadow: 0 4px 16px rgba(25,40,46,.07);
+  box-shadow: 0 4px 16px rgba(45,75,84,.07);
 }
 .service-card h3 {
   font-size: .95rem;
@@ -517,7 +517,7 @@ section { position: relative; }
   border-radius: 2rem;
   padding: clamp(2.5rem, 5vw, 5rem);
   text-align: center;
-  box-shadow: 0 8px 60px rgba(25,40,46,.08);
+  box-shadow: 0 8px 60px rgba(45,75,84,.08);
 }
 .endroll-card h2 {
   font-family: var(--font-display);
@@ -693,9 +693,9 @@ section { position: relative; }
 .btn-mail {
   background: var(--warm-900);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(25,40,46,.3);
+  box-shadow: 0 8px 24px rgba(45,75,84,.3);
 }
-.btn-mail:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(25,40,46,.4); }
+.btn-mail:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(45,75,84,.4); }
 .cta-reply {
   margin-top: 2rem;
   font-size: .8rem;
