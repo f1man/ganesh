@@ -10,8 +10,8 @@
   --warm-900:  #19282E;
   --tiffany:       #38C9C6;
   --tiffany-light: #A6EBE9;
-  --gold:      #B8946A;
-  --gold-light: #D4B08C;
+  --gold:      #5AD1CD;
+  --gold-light: #C4F0EE;
   --white:     #FFFFFF;
 
   --font-display: var(--font-cormorant), 'Georgia', serif;
@@ -44,10 +44,10 @@ body {
   gap: .25rem;
   background: rgba(255,255,255,0.85);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(184,148,106,0.25);
+  border: 1px solid rgba(90,209,205,0.25);
   border-radius: 100px;
   padding: .25rem;
-  box-shadow: 0 4px 24px rgba(46,33,25,0.08);
+  box-shadow: 0 4px 24px rgba(25,40,46,0.08);
 }
 .lang-toggle button {
   padding: .4rem 1rem;
@@ -88,9 +88,9 @@ body {
   position: absolute; inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(46,33,25,.5) 0%,
-    rgba(46,33,25,.3) 45%,
-    rgba(46,33,25,.95) 100%
+    rgba(25,40,46,.5) 0%,
+    rgba(25,40,46,.3) 45%,
+    rgba(25,40,46,.95) 100%
   );
 }
 .hero-inner {
@@ -131,7 +131,7 @@ body {
 .hero-sub {
   font-size: 1rem;
   line-height: 2;
-  color: rgba(250,247,242,.75);
+  color: rgba(244,251,251,.75);
   font-weight: 300;
   opacity: 0;
   animation: fadeUp .9s var(--ease-out) .8s forwards;
@@ -228,8 +228,8 @@ section { position: relative; }
 }
 .feature-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(46,33,25,.1);
-  border-color: rgba(212,133,106,.25);
+  box-shadow: 0 20px 60px rgba(25,40,46,.1);
+  border-color: rgba(56,201,198,.25);
 }
 .feature-icon {
   width: 4rem; height: 4rem;
@@ -278,7 +278,7 @@ section { position: relative; }
   border-radius: 1rem;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 4px 16px rgba(46,33,25,.08);
+  box-shadow: 0 4px 16px rgba(25,40,46,.08);
 }
 @media (min-width: 640px) {
   .marquee-item {
@@ -320,7 +320,7 @@ section { position: relative; }
   border-radius: 1.25rem;
   overflow: hidden;
   background: rgba(255,255,255,.05);
-  border: 1px solid rgba(250,247,242,.08);
+  border: 1px solid rgba(244,251,251,.08);
   max-width: 900px;
   margin: 0 auto 3rem;
   cursor: pointer;
@@ -367,7 +367,7 @@ section { position: relative; }
 .play-label {
   font-size: .65rem;
   letter-spacing: .3em;
-  color: rgba(250,247,242,.7);
+  color: rgba(244,251,251,.7);
   font-weight: 400;
 }
 .quote-pull {
@@ -397,7 +397,7 @@ section { position: relative; }
 .quote-attr {
   font-size: .7rem;
   letter-spacing: .18em;
-  color: rgba(212,133,106,.8);
+  color: rgba(56,201,198,.8);
   font-weight: 400;
 }
 
@@ -446,7 +446,7 @@ section { position: relative; }
 }
 .service-card {
   background: var(--cream);
-  border: 1px solid rgba(232,223,210,.6);
+  border: 1px solid rgba(208,240,238,.6);
   border-radius: 1.5rem;
   padding: 2.25rem 1.75rem;
   display: flex; flex-direction: column; align-items: center;
@@ -467,8 +467,8 @@ section { position: relative; }
   transition: transform .35s var(--ease-out);
 }
 .service-card:hover {
-  box-shadow: 0 16px 48px rgba(46,33,25,.1);
-  border-color: rgba(212,133,106,.2);
+  box-shadow: 0 16px 48px rgba(25,40,46,.1);
+  border-color: rgba(56,201,198,.2);
   transform: translateY(-4px);
 }
 .service-card:hover::before { transform: scaleX(1); }
@@ -478,7 +478,7 @@ section { position: relative; }
   border-radius: 1rem;
   display: flex; align-items: center; justify-content: center;
   color: var(--tiffany);
-  box-shadow: 0 4px 16px rgba(46,33,25,.07);
+  box-shadow: 0 4px 16px rgba(25,40,46,.07);
 }
 .service-card h3 {
   font-size: .95rem;
@@ -500,7 +500,7 @@ section { position: relative; }
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(242, 237, 228, 0.75); /* --cream-2 with transparency */
+  background: rgba(230, 247, 246, 0.75); /* --cream-2 with transparency */
   backdrop-filter: blur(2px);
 }
 .endroll-inner {
@@ -513,11 +513,11 @@ section { position: relative; }
 .endroll-card {
   background: rgba(255,255,255,.75);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(184,148,106,.2);
+  border: 1px solid rgba(90,209,205,.2);
   border-radius: 2rem;
   padding: clamp(2.5rem, 5vw, 5rem);
   text-align: center;
-  box-shadow: 0 8px 60px rgba(46,33,25,.08);
+  box-shadow: 0 8px 60px rgba(25,40,46,.08);
 }
 .endroll-card h2 {
   font-family: var(--font-display);
@@ -582,7 +582,7 @@ section { position: relative; }
 }
 .testimonial-card {
   background: rgba(255,255,255,.04);
-  border: 1px solid rgba(250,247,242,.08);
+  border: 1px solid rgba(244,251,251,.08);
   border-radius: 1.5rem;
   padding: 2.5rem;
   position: relative;
@@ -593,7 +593,7 @@ section { position: relative; }
   font-family: var(--font-display);
   font-size: 8rem;
   line-height: 1;
-  color: rgba(212,133,106,.15);
+  color: rgba(56,201,198,.15);
 }
 .stars { color: var(--gold-light); font-size: 1rem; margin-bottom: 1.5rem; }
 .testimonial-card blockquote {
@@ -620,7 +620,7 @@ section { position: relative; }
   flex-shrink: 0;
 }
 .meta-name { font-size: .9rem; font-weight: 500; color: var(--cream); }
-.meta-detail { font-size: .75rem; color: rgba(250,247,242,.45); margin-top: .15rem; }
+.meta-detail { font-size: .75rem; color: rgba(244,251,251,.45); margin-top: .15rem; }
 
 .why-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 2rem; }
 .why-item { display: flex; gap: 1rem; align-items: flex-start; }
@@ -630,7 +630,7 @@ section { position: relative; }
   margin-top: .15rem;
 }
 .why-title { font-size: 1.05rem; font-weight: 500; color: #fff; margin-bottom: .25rem; }
-.why-desc { font-size: .875rem; color: rgba(250,247,242,.55); }
+.why-desc { font-size: .875rem; color: rgba(244,251,251,.55); }
 .why-heading {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.5vw, 2.2rem);
@@ -693,9 +693,9 @@ section { position: relative; }
 .btn-mail {
   background: var(--warm-900);
   color: #fff;
-  box-shadow: 0 8px 24px rgba(46,33,25,.3);
+  box-shadow: 0 8px 24px rgba(25,40,46,.3);
 }
-.btn-mail:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(46,33,25,.4); }
+.btn-mail:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(25,40,46,.4); }
 .cta-reply {
   margin-top: 2rem;
   font-size: .8rem;
@@ -707,7 +707,7 @@ section { position: relative; }
 /* ─── FOOTER ─── */
 footer {
   background: var(--warm-900);
-  color: rgba(250,247,242,.4);
+  color: rgba(244,251,251,.4);
   padding: 4rem 0 2rem;
   border-top: 1px solid rgba(255,255,255,.06);
 }
