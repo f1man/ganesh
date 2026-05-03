@@ -317,12 +317,14 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ══════════ GALLERY MARQUEE ══════════ */}
+      {/* ══════════ GALLERY MARQUEE (주석 처리) ══════════ */}
+      {/* 
       <section className="section-gallery">
         <MarqueeRow images={row1} direction="left" speed="150s" />
         <MarqueeRow images={row2} direction="right" speed="180s" />
         <MarqueeRow images={row3} direction="left" speed="120s" />
       </section>
+      */}
 
       {/* ══════════ VIDEO ══════════ */}
       <section className="section-video">
