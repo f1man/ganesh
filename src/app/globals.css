@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --cream:     #FAF7F2;
-  --cream-2:   #F2EDE4;
-  --cream-3:   #E8DFD2;
-  --warm-100:  #D9CFC2;
-  --warm-500:  #8C7B6B;
-  --warm-700:  #5C4D3E;
-  --warm-900:  #2E2119;
+  --cream:     #F4FBFB;
+  --cream-2:   #E6F7F6;
+  --cream-3:   #D0F0EE;
+  --warm-100:  #C2D5D9;
+  --warm-500:  #6B868C;
+  --warm-700:  #3E555C;
+  --warm-900:  #19282E;
   --tiffany:       #38C9C6;
   --tiffany-light: #A6EBE9;
   --gold:      #B8946A;
@@ -233,7 +233,7 @@ section { position: relative; }
 }
 .feature-icon {
   width: 4rem; height: 4rem;
-  background: rgba(212,133,106,.1);
+  background: rgba(56, 201, 198, 0.1);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto 1.5rem;
@@ -642,7 +642,7 @@ section { position: relative; }
 /* ─── CTA ─── */
 .section-cta {
   padding: 8rem 0;
-  background: linear-gradient(135deg, var(--tiffany) 0%, #C97055 100%);
+  background: linear-gradient(135deg, var(--tiffany) 0%, #1D8C89 100%);
   color: #fff;
   text-align: center;
   position: relative;

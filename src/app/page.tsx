@@ -386,7 +386,7 @@ export default function Page() {
             </div>
             <div className="service-card reveal reveal-delay-1">
               <div className="service-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></svg>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
               </div>
               <h3>{t.serv2}</h3>
             </div>
@@ -439,16 +439,10 @@ export default function Page() {
           <div className="proof-grid">
             <div className="reveal">
               <p className="proof-label">{t.storyLabel}</p>
-              <div className="testimonial-card">
-                <div className="big-quote">"</div>
-                <div className="stars">★★★★★</div>
-                <blockquote>{t.storyQuote}</blockquote>
-                <div className="testimonial-meta">
-                  <div className="meta-avatar"></div>
-                  <div>
-                    <div className="meta-name">{t.storyUser}</div>
-                    <div className="meta-detail">{t.storyDesc}</div>
-                  </div>
+              <div className="testimonial-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '200px', textAlign: 'center' }}>
+                <div style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--warm-100)', marginBottom: '0.5rem' }}>Coming Soon</div>
+                <div style={{ fontSize: '0.9rem', color: 'var(--warm-500)' }}>
+                  {lang === 'ja' ? '現在準備中です。今後のアップデートをお待ちください。' : '현재 준비 중입니다. 향후 업데이트를 기대해 주세요.'}
                 </div>
               </div>
             </div>
